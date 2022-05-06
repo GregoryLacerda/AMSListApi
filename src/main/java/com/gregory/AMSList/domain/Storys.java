@@ -40,16 +40,16 @@ public abstract class Storys implements Serializable{
 	public Storys() {
 	}
 
-	public Storys(Integer id, String name, String coverImage, String site, String description, Double season,
-			Double episode) {
+	public Storys(Integer id, String name, String coverImage, String site, String description, Double totalSeason,
+			Double totalEpisode) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.poster = coverImage;
 		this.site = site;
 		this.description = description;
-		this.totalSeason = season;
-		this.totalEpisode = episode;
+		this.totalSeason = totalSeason;
+		this.totalEpisode = totalEpisode;
 	}
 	
 	public Storys(StorysDTO obj) {

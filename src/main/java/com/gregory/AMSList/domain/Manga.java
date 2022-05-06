@@ -1,39 +1,33 @@
-/*package com.gregory.AMSList.domain;
+package com.gregory.AMSList.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gregory.AMSList.domain.dtos.MangaDTO;
 
 @Entity
 @DiscriminatorValue("Manga")
-public class Manga extends Story{
+public class Manga extends Storys{
 	private static final long serialVersionUID = 1L;
-	
-	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY,mappedBy = "mangas")
-	private Set<User> users = new HashSet<>();
 	
 	public Manga() {
 		super();
 	}
 
-	public Manga(Integer id, String name, String coverImage, String siteLink, String description, Double season,
-			Double episode) {
-		super(id, name, coverImage, siteLink, description, season, episode);
+	public Manga(Integer id, String name, String poster, String site, String description, Double totalSeason,
+			Double totalEpisode) {
+		super(id, name, poster, site, description, totalSeason, totalEpisode);
 	}
 
-	public Set<User> getUsers() {
-		return users;
-	}
-
-	public void addUsers(Set<User> users) {
-		this.users.addAll(users);
+	public Manga(MangaDTO obj) {
+		super();
+		this.id = obj.getId();
+		this.name = obj.getName();
+		this.poster = obj.getPoster();
+		this.site = obj.getSite();
+		this.description = obj.getDescription();
+		this.totalSeason = obj.getTotalSeason();
+		this.totalEpisode = obj.getTotalEpisode();
 	}
 	
 }
-*/

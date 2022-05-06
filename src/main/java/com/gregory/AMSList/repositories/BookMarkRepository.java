@@ -13,12 +13,9 @@ public interface BookMarkRepository extends JpaRepository<BookMark, Integer>{
 			nativeQuery = true)
 	List<BookMark> findAllStoryByUser(Integer userId, String story);
 
-	@Query(value = "DELETE * FROM ANIME_REGISTRATION WHERE user_id = ?1",
-			nativeQuery = true)
-	void deleteByUser(Integer id);
 
-	@Query(value = "SELECT * FROM BOOKMARKS WHERE ANIME_ID = ?1",
+	@Query(value = "SELECT * FROM BOOKMARKS WHERE STORY_TYPE = ?1",
 			nativeQuery = true)
-	List<BookMark> findAllByAnime(Integer id);
+	List<BookMark> findAllByStory(String story);
 	
 }
