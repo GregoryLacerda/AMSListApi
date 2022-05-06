@@ -9,15 +9,15 @@ import com.gregory.AMSList.domain.BookMark;
 
 public interface BookMarkRepository extends JpaRepository<BookMark, Integer>{
 	
-	@Query(value = "SELECT * FROM ANIME_REGISTRATION WHERE USER_ID = ?1",
+	@Query(value = "SELECT * FROM BOOKMARKS WHERE USER_ID = ?1 AND STORY_TYPE = ?2",
 			nativeQuery = true)
-	List<BookMark> findAllByUser(Integer userId);
+	List<BookMark> findAllStoryByUser(Integer userId, String story);
 
 	@Query(value = "DELETE * FROM ANIME_REGISTRATION WHERE user_id = ?1",
 			nativeQuery = true)
 	void deleteByUser(Integer id);
 
-	@Query(value = "SELECT * FROM ANIME_REGISTRATION WHERE ANIME_ID = ?1",
+	@Query(value = "SELECT * FROM BOOKMARKS WHERE ANIME_ID = ?1",
 			nativeQuery = true)
 	List<BookMark> findAllByAnime(Integer id);
 	

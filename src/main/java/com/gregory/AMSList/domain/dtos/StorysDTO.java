@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
-import com.gregory.AMSList.domain.Anime;
+import com.gregory.AMSList.domain.Storys;
 
-public class AnimeDTO implements Serializable{
+public class StorysDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
@@ -23,11 +23,11 @@ public class AnimeDTO implements Serializable{
 	@NotNull(message = "EPISODE is required")
 	private Double totalEpisode;	
 	
-	public AnimeDTO() {
+	public StorysDTO() {
 		super();
 	}
 
-	public AnimeDTO(Anime obj) {
+	public StorysDTO(Storys obj) {
 		super();
 		this.id = obj.getId();
 		this.name = obj.getName();

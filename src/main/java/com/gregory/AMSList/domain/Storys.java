@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gregory.AMSList.domain.dtos.StorysDTO;
 
 
 @Entity
@@ -30,14 +31,13 @@ public abstract class Storys implements Serializable{
 	protected String poster;
 	protected String site;
 	protected String description;
-	protected Double season;
-	protected Double episode;
+	protected Double totalSeason;
+	protected Double totalEpisode;
 	
 	@OneToMany(mappedBy = "storys")
 	protected List<BookMark> bookMark = new ArrayList<>(); 	
 
 	public Storys() {
-		super();
 	}
 
 	public Storys(Integer id, String name, String coverImage, String site, String description, Double season,
@@ -48,8 +48,18 @@ public abstract class Storys implements Serializable{
 		this.poster = coverImage;
 		this.site = site;
 		this.description = description;
-		this.season = season;
-		this.episode = episode;
+		this.totalSeason = season;
+		this.totalEpisode = episode;
+	}
+	
+	public Storys(StorysDTO obj) {
+		this.id = obj.getId();
+		this.name = obj.getName();
+		this.poster = obj.getPoster();
+		this.site = obj.getSite();
+		this.description = obj.getDescription();
+		this.totalSeason = obj.getTotalSeason();
+		this.totalEpisode = obj.getTotalEpisode();
 	}
 
 	public Integer getId() {
@@ -92,20 +102,20 @@ public abstract class Storys implements Serializable{
 		this.description = description;
 	}
 
-	public Double getSeason() {
-		return season;
+	public Double getTotalSeason() {
+		return totalSeason;
 	}
 
-	public void setSeason(Double season) {
-		this.season = season;
+	public void setTotalSeason(Double season) {
+		this.totalSeason = season;
 	}
 
-	public Double getEpisode() {
-		return episode;
+	public Double getTotalEpisode() {
+		return totalEpisode;
 	}
 
-	public void setEpisode(Double episode) {
-		this.episode = episode;
+	public void setTotalEpisode(Double episode) {
+		this.totalEpisode = episode;
 	}
 	
 	@JsonIgnore

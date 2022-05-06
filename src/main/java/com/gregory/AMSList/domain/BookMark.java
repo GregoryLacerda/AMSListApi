@@ -1,6 +1,11 @@
 package com.gregory.AMSList.domain;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,22 +14,23 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gregory.AMSList.domain.dtos.BookMarkDTO;
 import com.gregory.AMSList.domain.enums.Status;
 
 @Entity
 @Table(name = "bookmarks")
-public class BookMark {
-	
+public class BookMark implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
 	private Status status;
-	
 	private String storyType;
+	private Double season;
+	private Double episode;
 	
-	@JsonIgnore
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -34,16 +40,19 @@ public class BookMark {
 	private Storys storys;
 	
 	public BookMark() {
-		super();
 	}
-	public BookMark(BookMarkDTO obj) {
+
+	public BookMark(Integer id, Status status, String storyType, User user, Storys storys, Double season, Double episode) {
 		super();
-		this.id = obj.getId();
-		this.storys = obj.getStory();
-		this.user = obj.getUser();
-		this.status = getStatus();
-		
+		this.id = id;
+		this.status = status;
+		this.storyType = storyType;
+		this.user = user;
+		this.storys = storys;
+		this.season = season;
+		this.episode = episode;
 	}
+
 
 	public Integer getId() {
 		return id;
@@ -52,6 +61,7 @@ public class BookMark {
 		this.id = id;
 	}
 	
+	@JsonIgnore
 	public User getUser() {
 		return user;
 	}
@@ -60,7 +70,7 @@ public class BookMark {
 		this.user = user;
 	}
 
-	public Storys getInfos() {
+	public Storys getStory() {
 		return storys;
 	}
 
@@ -83,4 +93,38 @@ public class BookMark {
 		this.storyType = storyType;
 	}
 
+	public Double getSeason() {
+		return season;
+	}
+
+	public void setSeason(Double season) {
+		this.season = season;
+	}
+
+	public Double getEpisode() {
+		return episode;
+	}
+
+	public void setEpisode(Double episode) {
+		this.episode = episode;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(storys, user);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BookMark other = (BookMark) obj;
+		return Objects.equals(storys, other.storys) && Objects.equals(user, other.user);
+	}
+
+	
 }

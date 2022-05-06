@@ -2,7 +2,6 @@ package com.gregory.AMSList.resources;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -29,29 +28,21 @@ public class BookMarkResource {
 	@Autowired
 	private BookMarkService service;
 	
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<BookMarkDTO> findById(@PathVariable Integer id){
-		
-		BookMark anime = service.findById(id);
-		
-		return ResponseEntity.ok().body(new BookMarkDTO(anime));
-	}
-	
 	@GetMapping
-	public ResponseEntity<List<BookMarkDTO>> findAll(){
+	public ResponseEntity<List<BookMark>> findAll(){
 		
 		List<BookMark> list = service.findAll();
-		List<BookMarkDTO> listDTO = list.stream().map(x -> new BookMarkDTO(x)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listDTO);
+		return ResponseEntity.ok().body(list);
 	}
+	
+	@PostMapping()
+	public ResponseEntity<BookMarkDTO> create(@RequestBody BookMarkDTO bookMarkDTO){
 
-	@PostMapping
-	public ResponseEntity<BookMarkDTO> create(@Valid @RequestBody BookMarkDTO objDTO){
+		BookMark obj = service.create(bookMarkDTO);
 		
-		BookMark newObj = service.create(objDTO);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		
-		return ResponseEntity.created(uri).build();		
+		return ResponseEntity.created(uri).build();
 	}
 	
 	@PutMapping(value = "/{id}")

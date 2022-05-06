@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gregory.AMSList.domain.BookMark;
+import com.gregory.AMSList.domain.Storys;
+import com.gregory.AMSList.domain.User;
 import com.gregory.AMSList.domain.dtos.BookMarkDTO;
 import com.gregory.AMSList.repositories.BookMarkRepository;
+import com.gregory.AMSList.repositories.StorysRepository;
 import com.gregory.AMSList.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -18,6 +21,10 @@ public class BookMarkService {
 	
 	@Autowired
 	private BookMarkRepository repository;
+	@Autowired
+	StorysRepository storyService;
+	@Autowired
+	UserService userService;
 	
 	public BookMark findById(Integer id) {		
 		Optional<BookMark> obj = repository.findById(id);
@@ -32,7 +39,7 @@ public class BookMarkService {
 	public BookMark create(BookMarkDTO objDTO) {
 		
 		objDTO.setId(null);
-		BookMark newObj = new BookMark(objDTO);
+		BookMark newObj = newBoorkMark(objDTO);
 		return repository.save(newObj);
 	}
 	
@@ -41,7 +48,7 @@ public class BookMarkService {
 		
 		objDTO.setId(id);
 		BookMark oldObj = findById(id);
-		oldObj = new BookMark(objDTO);
+		oldObj = newBoorkMark(objDTO);
 		
 		return repository.save(oldObj);
 	}
@@ -51,7 +58,28 @@ public class BookMarkService {
 		repository.deleteById(obj.getId());
 	}
 	
-
+	public BookMark newBoorkMark(BookMarkDTO obj) {
+		
+		User user = userService.findById(obj.getUser()); 
+		
+		Storys story = storyService.findById(obj.getStory()).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		
+		BookMark bookMark = new BookMark();
+		
+		if (obj.getId() != null) {
+			bookMark.setId(obj.getId());
+		}
+		
+		bookMark.setStory(story);
+		bookMark.setUser(user);
+		bookMark.setStatus(obj.getStatus());
+		bookMark.setSeason(obj.getSeason());
+		bookMark.setEpisode(obj.getEpisode());
+		bookMark.setStoryType(obj.getStoryType());
+		
+		return bookMark;
+		
+	}
 	
 }
 

@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.gregory.AMSList.domain.BookMark;
 import com.gregory.AMSList.domain.User;
 import com.gregory.AMSList.domain.dtos.UserDTO;
+import com.gregory.AMSList.repositories.BookMarkRepository;
 import com.gregory.AMSList.services.UserService;
 
 @RestController
@@ -28,6 +30,8 @@ public class UserResource {
 	
 	@Autowired
 	private UserService service;
+	@Autowired
+	private BookMarkRepository bookMarkRepository;
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<UserDTO> findById(@PathVariable Integer id){
@@ -45,6 +49,49 @@ public class UserResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 	
+	/**
+	 * Get all animes by the user
+	 * 
+	 * @PathVariable Integer id
+	 * @return List<BookMark>
+	 */
+	@GetMapping(value = "/{id}/animes")
+	public ResponseEntity<List<BookMark>> findAllAnimes(@PathVariable Integer id){
+		
+		List<BookMark> animes = bookMarkRepository.findAllStoryByUser(id, "Anime");
+		
+		return ResponseEntity.ok().body(animes);
+	}
+	
+	/**
+	 * Get all series by the user
+	 * 
+	 * @PathVariable Integer id
+	 * @return List<BookMark>
+	 */
+	@GetMapping(value = "/{id}/mangas")
+	public ResponseEntity<List<BookMark>> findAllMangas(@PathVariable Integer id){
+		
+		List<BookMark> animes = bookMarkRepository.findAllStoryByUser(id, "Manga");
+		
+		return ResponseEntity.ok().body(animes);
+	}
+	
+	/**
+	 * Get all series by the user
+	 * 
+	 * @PathVariable Integer id
+	 * @return List<BookMark>
+	 */
+	@GetMapping(value = "/{id}/series")
+	public ResponseEntity<List<BookMark>> findAllSeries(@PathVariable Integer id){
+		
+		List<BookMark> animes = bookMarkRepository.findAllStoryByUser(id, "Serie");
+		
+		return ResponseEntity.ok().body(animes);
+	}
+
+	
 	@PostMapping
 	public ResponseEntity<UserDTO> create(@Valid @RequestBody UserDTO objDTO){
 		
@@ -53,6 +100,7 @@ public class UserResource {
 		
 		return ResponseEntity.created(uri).build();
 	}
+
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<UserDTO> update(@PathVariable Integer id, @Valid @RequestBody UserDTO objDTO){

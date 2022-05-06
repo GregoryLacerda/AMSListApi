@@ -11,7 +11,6 @@ public class Anime extends Storys{
 	private static final long serialVersionUID = 1L;
 	
 	public Anime() {
-		super();
 	}
 
 	public Anime(Integer id, String name, String poster, String site, String description, Double season,
@@ -26,8 +25,8 @@ public class Anime extends Storys{
 		this.poster = obj.getPoster();
 		this.site = obj.getSite();
 		this.description = obj.getDescription();
-		this.season = obj.getSeason();
-		this.episode = obj.getEpisode();
+		this.totalSeason = obj.getTotalSeason();
+		this.totalEpisode = obj.getTotalEpisode();
 	}
 
 

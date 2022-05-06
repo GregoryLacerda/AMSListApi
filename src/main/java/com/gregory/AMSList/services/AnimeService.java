@@ -14,7 +14,7 @@ import com.gregory.AMSList.domain.Storys;
 import com.gregory.AMSList.domain.dtos.AnimeDTO;
 import com.gregory.AMSList.repositories.BookMarkRepository;
 import com.gregory.AMSList.repositories.AnimeRepository;
-import com.gregory.AMSList.repositories.StoryRepository;
+import com.gregory.AMSList.repositories.StorysRepository;
 import com.gregory.AMSList.services.exceptions.DataIntegrityViolationException;
 import com.gregory.AMSList.services.exceptions.ObjectNotFoundException;
 
@@ -25,7 +25,7 @@ public class AnimeService {
 	private AnimeRepository repository;
 	
 	@Autowired
-	private StoryRepository storyRepository;
+	private StorysRepository storysRepository;
 	@Autowired
 	private BookMarkRepository bookMarkRepository;	
 	
@@ -73,12 +73,12 @@ public class AnimeService {
 	 */
 	public void verifyDuplicateNameAndSite(AnimeDTO objDTO) {
 		
-		Optional<Storys> obj = storyRepository.findByName(objDTO.getName());
+		Optional<Storys> obj = storysRepository.findByName(objDTO.getName());
 		if (obj.isPresent() && obj.get().getId() == objDTO.getId()) {
 			throw new DataIntegrityViolationException("You already save this Anime"); 
 		}
 		
-		obj = storyRepository.findBySite(objDTO.getSite());
+		obj = storysRepository.findBySite(objDTO.getSite());
 		if (obj.isPresent() && obj.get().getId() == objDTO.getId()) {
 			throw new DataIntegrityViolationException("You already save a Anime with this site link");
 		}
