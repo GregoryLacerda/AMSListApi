@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.gregory.AMSList.domain.Anime;
 import com.gregory.AMSList.domain.BookMark;
+import com.gregory.AMSList.domain.Manga;
+import com.gregory.AMSList.domain.Serie;
 import com.gregory.AMSList.domain.User;
 import com.gregory.AMSList.domain.enums.Status;
 import com.gregory.AMSList.repositories.BookMarkRepository;
@@ -38,15 +40,15 @@ public class DBService {
 		Anime an2 = new Anime(null, "Mushiku2", "image2", "sitelink2", "description2", 2.0, 12.0);
 		Anime an3 = new Anime(null, "Mushiku3", "image3", "sitelink3", "description3", 2.0, 12.0);
 		
-		/*Serie se1 = new Serie(null, "Serie", "Serieimage", "Seriesitelink", "Seriedescription", 1.0, 12.0);
+		Serie se1 = new Serie(null, "Serie", "Serieimage", "Seriesitelink", "Seriedescription", 1.0, 12.0);
 		Serie se2 = new Serie(null, "SerieMushiku2", "Serieimage2", "Seriesitelink2", "Seriedescription2", 1.0, 12.0);
 		
 		
 		Manga mg1 = new Manga(null, "MangaMushiku", "Mangaimage", "Mangasitelink", "Mangadescription", 1.0, 12.0);
-		Manga mg2 = new Manga(null, "MangaMushiku2", "Mangaimage2", "Mangasitelink2", "Mangadescription2", 1.0, 12.0);*/
+		Manga mg2 = new Manga(null, "MangaMushiku2", "Mangaimage2", "Mangasitelink2", "Mangadescription2", 1.0, 12.0);
 		
 	
-		storysRepository.saveAll(Arrays.asList(an1, an2, an3));
+		storysRepository.saveAll(Arrays.asList(an1, an2, an3, mg1, mg2, se1, se2));
 		
 		/*user1.addAnimes(new HashSet<>(Arrays.asList(an1, an2)));
 		user1.addMangas(new HashSet<>(Arrays.asList(mg1, mg2)));
