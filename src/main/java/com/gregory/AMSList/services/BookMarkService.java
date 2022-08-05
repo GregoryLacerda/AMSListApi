@@ -73,8 +73,8 @@ public class BookMarkService {
 		bookMark.setStory(story);
 		bookMark.setUser(user);
 		bookMark.setStatus(obj.getStatus());
-		bookMark.setSeason(obj.getSeason());
-		bookMark.setEpisode(obj.getEpisode());
+		bookMark.setCurrentSeason(obj.getCurrentSeason());
+		bookMark.setCurrentEpisode(obj.getCurrentEpisode());
 		bookMark.setStoryType(obj.getStoryType());
 		
 		return bookMark;

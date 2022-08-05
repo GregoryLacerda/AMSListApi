@@ -25,8 +25,8 @@ public class BookMark implements Serializable{
 	
 	private Status status;
 	private String storyType;
-	private Double season;
-	private Double episode;
+	private Double currentSeason;
+	private Double currentEpisode;
 	
 	
 	@ManyToOne
@@ -40,15 +40,15 @@ public class BookMark implements Serializable{
 	public BookMark() {
 	}
 
-	public BookMark(Integer id, Status status, String storyType, User user, Storys storys, Double season, Double episode) {
+	public BookMark(Integer id, Status status, String storyType, User user, Storys storys, Double currentSeason, Double currentEpisode) {
 		super();
 		this.id = id;
 		this.status = status;
 		this.storyType = storyType;
 		this.user = user;
 		this.storys = storys;
-		this.season = season;
-		this.episode = episode;
+		this.currentSeason = currentSeason;
+		this.currentEpisode = currentEpisode;
 	}
 
 
@@ -91,20 +91,20 @@ public class BookMark implements Serializable{
 		this.storyType = storyType;
 	}
 
-	public Double getSeason() {
-		return season;
+	public Double getCurrentSeason() {
+		return currentSeason;
 	}
 
-	public void setSeason(Double season) {
-		this.season = season;
+	public void setCurrentSeason(Double season) {
+		this.currentSeason = season;
 	}
 
-	public Double getEpisode() {
-		return episode;
+	public Double getCurrentEpisode() {
+		return currentEpisode;
 	}
 
-	public void setEpisode(Double episode) {
-		this.episode = episode;
+	public void setCurrentEpisode(Double episode) {
+		this.currentEpisode = episode;
 	}
 
 	@Override

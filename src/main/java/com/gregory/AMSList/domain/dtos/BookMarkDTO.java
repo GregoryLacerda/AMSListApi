@@ -17,23 +17,23 @@ public class BookMarkDTO implements Serializable{
 	private Integer id;
 	private Status status;
 	private String storyType;
-	private Double season;
-	private Double episode;
+	private Double currentSeason;
+	private Double currentEpisode;
 	private Integer user;
 	private Integer story;
 
 	public BookMarkDTO() {
 	}
 	
-	public BookMarkDTO(Integer id, Status status, String storyType, Integer user, Integer storys, Double season, Double episode) {
+	public BookMarkDTO(Integer id, Status status, String storyType, Integer user, Integer storys, Double currentSeason, Double currentEpisode) {
 		super();
 		this.id = id;
 		this.status = status;
 		this.storyType = storyType;
 		this.user = user;
 		this.story = storys;
-		this.season = season;
-		this.episode = episode;
+		this.currentSeason = currentSeason;
+		this.currentEpisode = currentEpisode;
 	}
 
 	public BookMarkDTO(BookMark obj) {
@@ -42,8 +42,8 @@ public class BookMarkDTO implements Serializable{
 		this.story = obj.getStory().getId();
 		this.user = obj.getUser().getId();
 		this.status = obj.getStatus();
-		this.season = obj.getSeason();
-		this.episode = obj.getEpisode();
+		this.currentSeason = obj.getCurrentSeason();
+		this.currentEpisode = obj.getCurrentEpisode();
 		this.storyType = obj.getStoryType();
 	}
 
@@ -87,20 +87,20 @@ public class BookMarkDTO implements Serializable{
 		this.storyType = storyType;
 	}
 
-	public Double getSeason() {
-		return season;
+	public Double getCurrentSeason() {
+		return currentSeason;
 	}
 
-	public void setSeason(Double season) {
-		this.season = season;
+	public void setCurrentSeason(Double season) {
+		this.currentSeason = season;
 	}
 
-	public Double getEpisode() {
-		return episode;
+	public Double getCurrentEpisode() {
+		return currentEpisode;
 	}
 
-	public void setEpisode(Double episode) {
-		this.episode = episode;
+	public void setCurrentEpisode(Double episode) {
+		this.currentEpisode = episode;
 	}
 
 }
