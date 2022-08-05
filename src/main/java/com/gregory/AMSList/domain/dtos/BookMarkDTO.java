@@ -9,7 +9,7 @@ import com.gregory.AMSList.domain.enums.Status;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 
-@Jacksonized @Builder
+@Jacksonized
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BookMarkDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
