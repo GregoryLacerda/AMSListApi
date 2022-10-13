@@ -3,11 +3,13 @@ package com.gregory.AMSList.domain.dtos;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
 import com.gregory.AMSList.domain.BookMark;
 import com.gregory.AMSList.domain.User;
+import com.gregory.AMSList.domain.enums.Profile;
 
 public class UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -19,11 +21,13 @@ public class UserDTO implements Serializable{
 	private String email;
 	@NotNull(message = "PASSWORD is required")
 	private String password;
+	private Set<Integer> profiles = new HashSet<>();
 	
 	private Set<BookMark> storys = new HashSet<>(); 
 
 	public UserDTO() {
 		super();
+		addProfile(Profile.USER);
 	}
 
 	public UserDTO(User obj) {
@@ -33,7 +37,7 @@ public class UserDTO implements Serializable{
 		this.email = obj.getEmail();
 		this.password = obj.getPassword();
 		this.storys = obj.getStorys();
-		
+		addProfile(Profile.USER);
 	}
 
 	public Integer getId() {
@@ -66,6 +70,14 @@ public class UserDTO implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public Set<Profile> getProfile() {
+		return profiles.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
+	}
+
+	public void addProfile(Profile profile) {
+		this.profiles.add(profile.getCodigo());
 	}
 
 	public Set<BookMark> getStorys() {

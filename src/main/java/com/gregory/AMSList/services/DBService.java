@@ -3,6 +3,7 @@ package com.gregory.AMSList.services;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gregory.AMSList.domain.Anime;
@@ -26,15 +27,18 @@ public class DBService {
 	
 	@Autowired
 	private BookMarkRepository registrationRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 			
 	
 	public void instantiate() {
 		
-		User user1 = new User(null, "Greg", "greg@gmail", "123");
-		User user2 = new User(null, "alex", "alex@gmail", "123");
-		User user3 = new User(null, "alan", "alan@gmail", "123");
-		User user4 = new User(null, "hta", "hta@gmail", "123");
-		User user5 = new User(null, "jira", "jira@gmail", "123");
+		User user1 = new User(null, "Greg", "greg@gmail", encoder.encode("123"));
+		User user2 = new User(null, "alex", "alex@gmail", encoder.encode("123"));
+		User user3 = new User(null, "alan", "alan@gmail", encoder.encode("123"));
+		User user4 = new User(null, "hta", "hta@gmail", encoder.encode("123"));
+		User user5 = new User(null, "jira", "jira@gmail", encoder.encode("123"));
 		
 		Anime an1 = new Anime(null, "Mushiku", "image", "sitelink", "description", 1.0, 24.0);
 		Anime an2 = new Anime(null, "Mushiku2", "image2", "sitelink2", "description2", 2.0, 12.0);

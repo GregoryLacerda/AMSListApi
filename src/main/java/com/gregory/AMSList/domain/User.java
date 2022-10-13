@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +18,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gregory.AMSList.domain.dtos.UserDTO;
+import com.gregory.AMSList.domain.enums.Profile;
 
 
 @Entity
@@ -29,11 +33,16 @@ public class User implements Serializable{
 	private String name;
 	private String email;
 	private String password;
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+	private Set<Integer> profiles = new HashSet<>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<BookMark> storys = new HashSet<>(); 
 
 	public User() {
+		
+		addProfile(Profile.USER);
 	}
 
 	public User(Integer id, String name, String email, String password) {
@@ -42,6 +51,7 @@ public class User implements Serializable{
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		addProfile(Profile.USER);
 	}
 	
 	public User(UserDTO obj) {
@@ -83,6 +93,15 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public Set<Profile> getProfile() {
+		return profiles.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
+	}
+
+	public void addProfile(Profile profile) {
+		this.profiles.add(profile.getCodigo());
+	}
+	
 	@JsonIgnore
 	public Set<BookMark> getStorys(){
 		return storys;
@@ -109,6 +128,8 @@ public class User implements Serializable{
 		User other = (User) obj;
 		return Objects.equals(email, other.email) && Objects.equals(id, other.id);
 	}
+
+
 
 	
 	
