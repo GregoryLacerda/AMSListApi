@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -91,7 +92,7 @@ public class UserResource {
 		return ResponseEntity.ok().body(animes);
 	}
 
-	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<UserDTO> create(@Valid @RequestBody UserDTO objDTO){
 		
@@ -101,7 +102,7 @@ public class UserResource {
 		return ResponseEntity.created(uri).build();
 	}
 
-	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<UserDTO> update(@PathVariable Integer id, @Valid @RequestBody UserDTO objDTO){
 		
@@ -110,6 +111,7 @@ public class UserResource {
 		return ResponseEntity.ok().body(new UserDTO(obj));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<UserDTO> delete(@PathVariable Integer id){
 		
