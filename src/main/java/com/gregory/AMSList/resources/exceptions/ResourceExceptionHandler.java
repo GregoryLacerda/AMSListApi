@@ -30,4 +30,13 @@ public class ResourceExceptionHandler {
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
+	
+	/*@ExceptionHandler(AuthenticationException.class)
+	public ResponseEntity<StandardError> dataIntegrityViolationException(AuthenticationException ex,
+				HttpServletRequest request){
+		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(),
+						"Access Denied", ex.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+	}*/
 }
