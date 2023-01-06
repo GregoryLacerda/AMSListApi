@@ -11,7 +11,4 @@ import com.gregory.AMSList.domain.User;
 public interface UserRepository extends JpaRepository<User, Integer>{
 
 	Optional<User> findByEmail(String email);
-	
-	
-
 }
