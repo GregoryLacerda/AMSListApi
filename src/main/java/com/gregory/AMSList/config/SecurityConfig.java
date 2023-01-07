@@ -27,13 +27,11 @@ import com.gregory.AMSList.security.JWTUtil;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	private static final String [] PUBLIC_MATCHERS = {"/h2-console/**"};
-	
 	@Autowired
 	private Environment env;
-	
 	@Autowired
 	private JWTUtil jwtUtil;
-	
+
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
@@ -66,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
 		configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/", configuration);
+		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
 	

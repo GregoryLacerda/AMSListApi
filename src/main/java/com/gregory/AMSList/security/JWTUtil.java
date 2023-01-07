@@ -50,8 +50,8 @@ public class JWTUtil {
 	}
 
 	public String getUserName(String token) {
-		
 		Claims claims = getClaims(token);
+
 		if (claims != null) {
 			return claims.getSubject();
 		}
