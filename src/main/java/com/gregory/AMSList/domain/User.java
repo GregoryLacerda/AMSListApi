@@ -36,7 +36,7 @@ public class User implements Serializable{
 	
 	@ElementCollection(fetch = FetchType.EAGER)
 	private Set<Integer> profiles = new HashSet<>();
-
+	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<BookMark> storys = new HashSet<>(); 
 
