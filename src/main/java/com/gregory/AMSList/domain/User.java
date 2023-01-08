@@ -33,15 +33,14 @@ public class User implements Serializable{
 	private String name;
 	private String email;
 	private String password;
-	
+
 	@ElementCollection(fetch = FetchType.EAGER)
 	private Set<Integer> profiles = new HashSet<>();
-	@JsonIgnore
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private Set<BookMark> storys = new HashSet<>(); 
+	private Set<BookMark> storys = new HashSet<>();
 
 	public User() {
-		
 		addProfile(Profile.USER);
 	}
 
@@ -93,16 +92,15 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public Set<Profile> getProfile() {
-		return profiles.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
+		return profiles.stream().map(Profile::toEnum).collect(Collectors.toSet());
 	}
 
 	public void addProfile(Profile profile) {
 		this.profiles.add(profile.getCodigo());
 	}
 	
-	@JsonIgnore
 	public Set<BookMark> getStorys(){
 		return storys;
 	}
@@ -129,8 +127,4 @@ public class User implements Serializable{
 		return Objects.equals(email, other.email) && Objects.equals(id, other.id);
 	}
 
-
-
-	
-	
 }

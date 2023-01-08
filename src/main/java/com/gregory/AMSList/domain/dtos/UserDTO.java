@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gregory.AMSList.domain.BookMark;
 import com.gregory.AMSList.domain.User;
 import com.gregory.AMSList.domain.enums.Profile;
@@ -64,6 +65,7 @@ public class UserDTO implements Serializable{
 		this.email = email;
 	}
 
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
@@ -71,7 +73,7 @@ public class UserDTO implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+	@JsonIgnore
 	public Set<Profile> getProfile() {
 		return profiles.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
 	}
@@ -80,6 +82,7 @@ public class UserDTO implements Serializable{
 		this.profiles.add(profile.getCodigo());
 	}
 
+	@JsonIgnore
 	public Set<BookMark> getStorys() {
 		return storys;
 	}
