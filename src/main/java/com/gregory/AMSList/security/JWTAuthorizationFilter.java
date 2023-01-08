@@ -32,7 +32,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
 		
 		String header = request.getHeader("Authorization");
 		if (header != null && header.startsWith("Bearer ")) {
-			UsernamePasswordAuthenticationToken authToken = getAuthentication(header.substring(7));
+			UsernamePasswordAuthenticationToken authToken = getAuthentication(header.replace("Bearer ", ""));
 			if (authToken != null) {
 				SecurityContextHolder.getContext().setAuthentication(authToken);
 			}
@@ -41,11 +41,15 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
 	}
 
 	private UsernamePasswordAuthenticationToken getAuthentication(String token) {
-		
-		if (jwtUtil.tokenValido(token)) {
-			String userName = jwtUtil.getUserName(token);
-			UserDetails details = userDetailsService.loadUserByUsername(userName);
-			return new UsernamePasswordAuthenticationToken(details.getUsername(), null, details.getAuthorities());
+		try {
+			if (jwtUtil.tokenValido(token)) {
+				String userName = jwtUtil.getUserName(token);
+				UserDetails details = userDetailsService.loadUserByUsername(userName);
+				return new UsernamePasswordAuthenticationToken(details.getUsername(), null, details.getAuthorities());
+			}
+		}catch (Exception e){
+			System.out.println(token);
+			throw new RuntimeException(e);
 		}
 		return null;
 	}
