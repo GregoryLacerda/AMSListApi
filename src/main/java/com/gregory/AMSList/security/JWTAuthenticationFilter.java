@@ -38,8 +38,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			CredentialsDTO creds = new ObjectMapper().readValue(request.getInputStream(), CredentialsDTO.class);
 			UsernamePasswordAuthenticationToken authenticationToken = 
 					new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getPassword(), new ArrayList<>());
-			Authentication authentication = authenticationManager.authenticate(authenticationToken);
-			return authentication;
+			return authenticationManager.authenticate(authenticationToken);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -51,8 +50,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 		String username = ((UserSS) authResult.getPrincipal()).getUsername();
 		String token = jwtUtil.generateToken(username);
+		Integer id = ((UserSS) authResult.getPrincipal()).getId();
 		response.setHeader("access-control-expose-headers", "Authorization");
 		response.setHeader("Authorization", "Bearer " + token);
+		response.setHeader("UserId", id.toString());
 	}
 	
 	@Override
