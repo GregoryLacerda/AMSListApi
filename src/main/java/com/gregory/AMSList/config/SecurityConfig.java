@@ -27,7 +27,7 @@ import com.gregory.AMSList.security.JWTUtil;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
-	private static final String [] PUBLIC_MATCHERS = {"/h2-console/**"};
+	private static final String [] PUBLIC_MATCHERS = {"/h2-console/**", "/swagger-ui/**", "/v3/api-docs/**"};
 	@Autowired
 	private Environment env;
 	@Autowired
@@ -51,7 +51,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest().authenticated();
-
 
 	}
 	

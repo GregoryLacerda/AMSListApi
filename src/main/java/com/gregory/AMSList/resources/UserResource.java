@@ -49,8 +49,8 @@ public class UserResource {
 		List<UserDTO> listDTO = list.stream().map(obj -> new UserDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
-	
 
+	
 	@GetMapping(value = "/{id}/animes")
 	public ResponseEntity<List<BookMark>> findAllAnimes(@PathVariable Integer id){
 		
@@ -58,7 +58,7 @@ public class UserResource {
 		
 		return ResponseEntity.ok().body(animes);
 	}
-	
+
 
 	@GetMapping(value = "/{id}/mangas")
 	public ResponseEntity<List<BookMark>> findAllMangas(@PathVariable Integer id){
@@ -67,7 +67,7 @@ public class UserResource {
 		
 		return ResponseEntity.ok().body(animes);
 	}
-	
+
 
 	@GetMapping(value = "/{id}/series")
 	public ResponseEntity<List<BookMark>> findAllSeries(@PathVariable Integer id){
