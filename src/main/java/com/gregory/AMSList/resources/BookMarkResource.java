@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.gregory.AMSList.domain.Manga;
+import com.gregory.AMSList.domain.dtos.MangaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,6 +35,14 @@ public class BookMarkResource {
 		
 		List<BookMark> list = service.findAll();
 		return ResponseEntity.ok().body(list);
+	}
+
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<BookMarkDTO> findById(@PathVariable Integer id){
+
+		BookMark bookMark = service.findById(id);
+
+		return ResponseEntity.ok().body(new BookMarkDTO(bookMark));
 	}
 	
 	@PostMapping()
