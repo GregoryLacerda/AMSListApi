@@ -38,11 +38,11 @@ public class BookMarkResource {
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<BookMarkDTO> findById(@PathVariable Integer id){
+	public ResponseEntity<BookMark> findById(@PathVariable Integer id){
 
 		BookMark bookMark = service.findById(id);
 
-		return ResponseEntity.ok().body(new BookMarkDTO(bookMark));
+		return ResponseEntity.ok().body(bookMark);
 	}
 	
 	@PostMapping()
