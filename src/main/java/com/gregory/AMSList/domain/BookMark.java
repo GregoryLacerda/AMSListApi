@@ -87,6 +87,7 @@ public class BookMark implements Serializable{
 	public String getStoryType() {
 		return storyType;
 	}
+
 	public void setStoryType(String storyType) {
 		this.storyType = storyType;
 	}

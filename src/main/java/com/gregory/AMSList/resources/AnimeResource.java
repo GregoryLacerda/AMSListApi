@@ -33,10 +33,9 @@ public class AnimeResource {
 	public ResponseEntity<AnimeDTO> findById(@PathVariable Integer id){
 		
 		Anime anime = service.findById(id);
-		
 		return ResponseEntity.ok().body(new AnimeDTO(anime));
 	}
-	
+
 	@GetMapping
 	public ResponseEntity<List<AnimeDTO>> findAll(){
 		

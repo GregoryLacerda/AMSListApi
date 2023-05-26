@@ -45,13 +45,13 @@ public class JWTUtil {
 		try {
 			return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();
 		} catch (Exception e) {
-			return null;
+			throw new RuntimeException(e);
 		}
 	}
 
 	public String getUserName(String token) {
-		
 		Claims claims = getClaims(token);
+
 		if (claims != null) {
 			return claims.getSubject();
 		}

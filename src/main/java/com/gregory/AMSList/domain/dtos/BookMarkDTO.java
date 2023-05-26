@@ -5,11 +5,6 @@ import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.gregory.AMSList.domain.BookMark;
 import com.gregory.AMSList.domain.enums.Status;
-
-import lombok.Builder;
-import lombok.extern.jackson.Jacksonized;
-
-@Jacksonized
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BookMarkDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
