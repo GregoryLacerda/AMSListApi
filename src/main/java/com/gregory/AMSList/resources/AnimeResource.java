@@ -50,8 +50,9 @@ public class AnimeResource {
 		
 		Anime newObj = service.create(objDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
-		
-		return ResponseEntity.created(uri).build();		
+		AnimeDTO animeDTO = new AnimeDTO(newObj);
+
+		return ResponseEntity.ok().body(animeDTO);
 	}
 	
 	@PutMapping(value = "/{id}")
