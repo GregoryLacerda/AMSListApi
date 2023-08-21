@@ -9,6 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import io.github.hengyunabc.zabbix.sender.DataObject;
+import io.github.hengyunabc.zabbix.sender.SenderResult;
+import io.github.hengyunabc.zabbix.sender.ZabbixSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -63,6 +66,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		response.setStatus(401);
 		response.setContentType("application/json");
 		response.getWriter().append(json());
+
+		this.zabbixSender();
 	}
 
 	private CharSequence json() {
@@ -75,7 +80,32 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 				+ "\"message\": \"Email e/ou senha inválidos\", "
 				+ "\"path\": \"/login\"}";
 	} 
-	
+
+	private void zabbixSender(){
+		String host = "127.0.0.1";
+		int port = 10051;
+		ZabbixSender zabbixSender = new ZabbixSender(host, port);
+
+		DataObject dataObject = new DataObject();
+		dataObject.setHost("172.17.42.1");
+		dataObject.setKey("test_item");
+		dataObject.setValue("1");
+		// TimeUnit is SECONDS.
+		dataObject.setClock(System.currentTimeMillis()/1000);
+		SenderResult result = null;
+		try {
+			result = zabbixSender.send(dataObject);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
+		System.out.println("result:" + result);
+		if (result.success()) {
+			System.out.println("send success.");
+		} else {
+			System.err.println("sned fail!");
+		}
+	}
 	
 }
 
