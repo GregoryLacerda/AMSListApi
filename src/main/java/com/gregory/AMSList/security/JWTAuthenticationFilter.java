@@ -57,6 +57,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		response.setHeader("access-control-expose-headers", "Authorization, UserId");
 		response.setHeader("Authorization", "Bearer " + token);
 		response.setHeader("UserId", id.toString());
+
+		this.zabbixSender("0");
+
 	}
 	
 	@Override
@@ -67,7 +70,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		response.setContentType("application/json");
 		response.getWriter().append(json());
 
-		this.zabbixSender();
+		this.zabbixSender("1");
 	}
 
 	private CharSequence json() {
@@ -81,15 +84,15 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 				+ "\"path\": \"/login\"}";
 	} 
 
-	private void zabbixSender(){
-		String host = "127.0.0.1";
+	private void zabbixSender(String message){
+		String host = "172.20.240.3";
 		int port = 10051;
 		ZabbixSender zabbixSender = new ZabbixSender(host, port);
 
 		DataObject dataObject = new DataObject();
-		dataObject.setHost("172.17.42.1");
-		dataObject.setKey("test_item");
-		dataObject.setValue("1");
+		dataObject.setHost("172.20.240.6");
+		dataObject.setKey("user.login");
+		dataObject.setValue(message);
 		// TimeUnit is SECONDS.
 		dataObject.setClock(System.currentTimeMillis()/1000);
 		SenderResult result = null;
@@ -98,6 +101,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+
 
 		System.out.println("result:" + result);
 		if (result.success()) {
