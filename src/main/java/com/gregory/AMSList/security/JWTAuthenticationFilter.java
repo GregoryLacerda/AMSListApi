@@ -90,7 +90,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		ZabbixSender zabbixSender = new ZabbixSender(host, port);
 
 		DataObject dataObject = new DataObject();
-		dataObject.setHost("172.20.240.6");
+		dataObject.setHost("172.20.240.3");
 		dataObject.setKey("user.login");
 		dataObject.setValue(message);
 		// TimeUnit is SECONDS.
